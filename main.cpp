@@ -4,6 +4,7 @@
 #include <sstream>
 #include <string>
 #include <vector>
+#include "main.h"
 
 using std::sort;
 using std::cout;
