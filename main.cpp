@@ -13,9 +13,12 @@ using std::istringstream;
 using std::string;
 using std::vector;
 
+//enum for storing the state of a cell
 enum class State {kEmpty, kObstacle, kClosed, kPath};
+//deltas used to check all neighbors of the active cell
 const int delta[4][2]{{-1, 0}, {0, -1}, {1, 0}, {0, 1}};
 
+//parses each line of the board, returning it into a vector of States to be used with other functions
 vector<State> ParseLine(string line){
     istringstream stream(line);
     vector<State> v;
@@ -31,6 +34,7 @@ vector<State> ParseLine(string line){
     return v;
 }
 
+//reads the board file and returns it into a vector of state vectors (each state vector being created by ParseLine())
 vector<vector<State>> ReadBoardFile(string filename){
     ifstream file(filename);
     vector<vector<State>> vr;
@@ -43,21 +47,24 @@ vector<vector<State>> ReadBoardFile(string filename){
     return vr;
 }
 
+//compares the F value of two different cells and returns the one with the biggest F value
 bool Compare(const vector<int> a, const vector<int> b){
     int f1 = a[2] + a[3];
     int f2 = b[2] + b[3];
     return f1 > f2;
 }
 
+//sorts a cell
 void CellSort(vector<vector<int>> *v) {
   sort(v->begin(), v->end(), Compare);
 }
 
-
+//calculates the Heuristic of a single cell, using the x and y values of the goal and the x and y values of the cell
 int Heuristic(int x1, int y1, int x2, int y2){
     return abs(x2 - x1) + abs(y2 - y1);
 }
 
+//TODO
 bool CheckValidCell(int x, int y, vector<vector<State>> &grid){
     bool on_grid_x = (x >= 0 && x < grid.size());
     bool on_grid_y = (y >= 0 && y < grid[0].size());
@@ -67,12 +74,14 @@ bool CheckValidCell(int x, int y, vector<vector<State>> &grid){
     return false;
 }
 
+//TODO
 void AddToOpen(int x, int y, int g, int h, vector<vector<int>> &open, vector<vector<State>> &grid){
     vector<int> node{x, y, g, h};
     open.push_back(node);
     grid[x][y] = State::kClosed;
 }
 
+//TODO
 void ExpandNeighbors(const vector<int> &current, vector<vector<int>> &open, vector<vector<State>> &grid, int goal[2]){
     int x = current[0];
     int y = current[1];
@@ -88,6 +97,7 @@ void ExpandNeighbors(const vector<int> &current, vector<vector<int>> &open, vect
     }
 }
 
+//TODO
 vector<vector<State>> Search(vector<vector<State>> grid, int start[2], int goal[2]){
     vector<vector<int>> open{};
     int x = start[0];
@@ -114,6 +124,7 @@ vector<vector<State>> Search(vector<vector<State>> grid, int start[2], int goal[
     return vector<vector<State>> {};
 }
 
+//TODO
 string CellString(State cell){
     switch(cell){
         case State::kObstacle: return "X  ";
@@ -122,6 +133,7 @@ string CellString(State cell){
     }
 }
 
+//TODO
 void PrintBoard(vector<vector<State>> v){
     for(int i = 0; i < v.size(); i++){
         for(int j = 0; j < v[i].size(); j++){
@@ -131,6 +143,7 @@ void PrintBoard(vector<vector<State>> v){
     }
 }
 
+//TODO
 int main(){
    int start[2]{0, 0};
    int goal[2]{4, 5};

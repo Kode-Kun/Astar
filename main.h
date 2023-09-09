@@ -8,13 +8,13 @@ using std::string;
 
 enum class State;
 
-//here are all the functions relating to parsing, formating and printing out the board
+//the functions relating to parsing, formating and printing out the board
 vector<State> ParseLine(string);
 vector<vector<State>> ReadBoardFile(string);
 string CellString(State);
 void PrintBoard(vector<vector<State>>);
 
-//here are all the functions related to the actual A* Search algorithm
+//the functions related to the actual A* Search algorithm
 vector<vector<State>> Search(vector<vector<State>> grid, int start[2], int goal[2]);
 void ExpandNeighbors(const vector<int>&, vector<vector<int>>&, vector<vector<State>>&, int[2]);
 bool CheckValidCell(int, int, vector<vector<State>>&);
