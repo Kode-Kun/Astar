@@ -64,7 +64,7 @@ int Heuristic(int x1, int y1, int x2, int y2){
     return abs(x2 - x1) + abs(y2 - y1);
 }
 
-//TODO
+//checks if a cell is on the &grid and if that cell is empty (returns true if empty)
 bool CheckValidCell(int x, int y, vector<vector<State>> &grid){
     bool on_grid_x = (x >= 0 && x < grid.size());
     bool on_grid_y = (y >= 0 && y < grid[0].size());
@@ -74,14 +74,16 @@ bool CheckValidCell(int x, int y, vector<vector<State>> &grid){
     return false;
 }
 
-//TODO
+//adds a cell to the open vector and defines it as State::kClosed on the grid
 void AddToOpen(int x, int y, int g, int h, vector<vector<int>> &open, vector<vector<State>> &grid){
     vector<int> node{x, y, g, h};
     open.push_back(node);
     grid[x][y] = State::kClosed;
 }
 
-//TODO
+//takes a reference to the current cell, the open vector, the grid and the value of the goal as arguments.
+//iterates through each neighbor of the current cell (by using the deltas), uses CheckValidCell() on each one
+//to see if they're empty, then adds any empty cell to the open vector through AddToOpen()
 void ExpandNeighbors(const vector<int> &current, vector<vector<int>> &open, vector<vector<State>> &grid, int goal[2]){
     int x = current[0];
     int y = current[1];
@@ -97,7 +99,8 @@ void ExpandNeighbors(const vector<int> &current, vector<vector<int>> &open, vect
     }
 }
 
-//TODO
+//takes the grid, the starting cell and the goal cell as arguments.
+//adds the start cell to the open vector through AddToOpen()
 vector<vector<State>> Search(vector<vector<State>> grid, int start[2], int goal[2]){
     vector<vector<int>> open{};
     int x = start[0];
